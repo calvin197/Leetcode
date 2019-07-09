@@ -1,0 +1,40 @@
+// bottom up DP
+
+var uniquePaths = function(m, n) {
+  let storage = {};
+  storage[[1,1]] = 1;
+  let curr = [1,1]
+  while (1===1) {
+    for (let i = 0; i<2; i++){
+      curr[i]++; 
+      if (!(curr in storage)) storage[curr] = storage[[curr[0]-1,curr[1]]] || 0 + storage[[curr[0],curr[1]-1]]|| 0 ; 
+      if (curr[0]===m && curr[1]===n) return storage;
+    }
+  };
+};
+
+// naive solution (backtracking)
+
+var uniquePaths = function(m, n) {
+  var isValid = function(x, y) {
+    return x <= m - 1 && y <= n - 1;
+  };
+
+  var moves = [[1, 0], [0, 1]];
+  var count = 0;
+
+  var moving = function(x, y) {
+    if (x === m - 1 && y === n - 1) {
+      count++;
+      return;
+    }
+    for (let i = 0; i < moves.length; i++) {
+      let nextMove = [x + moves[i][0], y + moves[i][1]];
+      if (isValid(nextMove[0], nextMove[1])) {
+        moving(nextMove[0], nextMove[1]);
+      }
+    }
+  };
+  moving(0, 0);
+  return count;
+};
