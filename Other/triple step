@@ -1,0 +1,8 @@
+var trpleStep = function(n){
+    let storage = {}; 
+    storage[0] = 1;
+    for (let i = 0; i <= n; i++){
+        if (!storage[i]) storage[i] = (storage[i-1]||0) + (storage[i-2]||0) + (storage[i-3]||0); 
+    }
+    return storage[n]; 
+}
